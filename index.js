@@ -11,7 +11,7 @@ function verifySignature({ secret, body, signature }) {
 }
 
 function webhookHandler(onfleet_api_secret, handler) {
-  return (event, ctx) => {
+  return async (event, ctx) => {
     // WebHook validation
     // https://docs.onfleet.com/reference/validation
     if (event.requestContext.http.method == "GET") {
