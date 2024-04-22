@@ -10,7 +10,7 @@ function verifySignature({ secret, body, signature }) {
   return hash === signature;
 }
 
-function webhookHandler(handler) {
+function webhookHandler(onfleet_api_secret, handler) {
   return (event, ctx) => {
     // WebHook validation
     // https://docs.onfleet.com/reference/validation
@@ -25,7 +25,7 @@ function webhookHandler(handler) {
     // https://docs.onfleet.com/reference/secrets
 
     const validSignature = verifySignature({
-      secret: ONFLEET_API_SECRET,
+      secret: onfleet_api_secret,
       body: event.body,
       signature: event.headers['x-onfleet-signature']
     });
