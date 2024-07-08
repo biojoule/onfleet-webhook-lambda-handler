@@ -87,6 +87,8 @@ export const handler = webhookHandler(
 
 ## Version History
 
+* 0.1.2
+  * Moved `@types/aws-lambda` to the `dependencies` as per the [installation instructions](https://www.npmjs.com/package/@types/aws-lambda).
 * 0.1.0
   * Migration to TypeScript.
   * Addition of unit tests.
