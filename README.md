@@ -87,6 +87,8 @@ export const handler = webhookHandler(
 
 ## Version History
 
+* 0.1.4
+  * Update dependencies.
 * 0.1.3
   * Pinned dependencies to safe and cooled down versions.
 * 0.1.2
