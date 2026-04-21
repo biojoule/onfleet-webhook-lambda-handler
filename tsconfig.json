@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "target": "ES2023",
+    "lib": ["ES2023"],
     "strict": true,
     "strictNullChecks": true,
     "sourceMap": true,

@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2, Context } from "aws-lambda";
-import { anyFunction, mock } from "jest-mock-extended";
+import { mock } from "jest-mock-extended";
 import { webhookHandler } from "./webhook-handler";
 
 describe("webhook-handler", () => {
@@ -21,11 +21,7 @@ describe("webhook-handler", () => {
     const context = mock<Context>();
 
     // Act
-    const result = await webhookHandler(secret, handler)(
-      event,
-      context,
-      () => {},
-    );
+    const result = await webhookHandler(secret, handler)(event, context);
 
     // Assert
     expect(result).toEqual({
@@ -55,15 +51,11 @@ describe("webhook-handler", () => {
     const context = mock<Context>();
 
     // Act
-    const result = await webhookHandler(secret, handler)(
-      event,
-      context,
-      () => {},
-    );
+    const result = await webhookHandler(secret, handler)(event, context);
 
     // Assert
     expect(result).toEqual(expectedResult);
-    expect(handler).toHaveBeenCalledWith(event, context, anyFunction());
+    expect(handler).toHaveBeenCalledWith(event, context);
   });
 
   test("should fail if event body is undefined", async () => {
@@ -82,7 +74,7 @@ describe("webhook-handler", () => {
 
     // Act & Assert
     await expect(
-      webhookHandler(secret, handler)(event, context, () => {}),
+      webhookHandler(secret, handler)(event, context),
     ).rejects.toThrow(new Error("No body in event"));
     expect(handler).not.toHaveBeenCalled();
   });
@@ -103,7 +95,7 @@ describe("webhook-handler", () => {
 
     // Act & Assert
     await expect(
-      webhookHandler(secret, handler)(event, context, () => {}),
+      webhookHandler(secret, handler)(event, context),
     ).rejects.toThrow(new Error("No signature in headers"));
     expect(handler).not.toHaveBeenCalled();
   });
@@ -124,11 +116,7 @@ describe("webhook-handler", () => {
     const context = mock<Context>();
 
     // Act
-    const result = await webhookHandler(secret, handler)(
-      event,
-      context,
-      () => {},
-    );
+    const result = await webhookHandler(secret, handler)(event, context);
 
     // Assert
     expect(result).toEqual({

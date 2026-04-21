@@ -1,6 +1,6 @@
 {
   "name": "@biojoule/onfleet-webhook-lambda-handler",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Simple wrapper to perform onfleet webhook validation and authentication in AWS Lambda",
   "author": "Andrew Savchyn <dev@scorpil.com> (https://scorpil.com)",
   "contributors": [
@@ -13,6 +13,9 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "clean": "rm -rf dist",
     "build": "$npm_execpath run clean && tsup",
@@ -27,7 +30,7 @@
   "devDependencies": {
     "@eslint/js": "9.39.2",
     "@types/jest": "30.0.0",
-    "@types/node": "20.19.30",
+    "@types/node": "22.19.17",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "globals": "17.2.0",

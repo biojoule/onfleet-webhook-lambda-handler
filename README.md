@@ -45,6 +45,10 @@ deno add @biojoule/onfleet-webhook-lambda-handler
 
 #### JavaScript
 
+The inner handler uses the modern AWS Lambda async signature `(event, context) => Promise<result>` (arity of 2). The legacy `callback` argument is no longer supported.
+
+#### JavaScript
+
 ```javascript
 const { webhookHandler } = require("@biojoule/onfleet-webhook-lambda-handler");
 
@@ -52,7 +56,7 @@ const secret = process.env.ONFLEET_WEBHOOK_SECRET
 
 exports.handler = webhookHandler(
     secret,
-    async (event, ctx) => {
+    async (event, context) => {
       return {
         statusCode: 200,
         body: "Hello, Onfleet!"
@@ -70,7 +74,7 @@ const secret = process.env.ONFLEET_WEBHOOK_SECRET
 
 export const handler = webhookHandler(
     secret,
-    async (event, ctx) => {
+    async (event, context) => {
       return {
         statusCode: 200,
         body: "Hello, Onfleet!"
@@ -78,6 +82,10 @@ export const handler = webhookHandler(
     }
   )
 ```
+
+### Runtime support
+
+Requires **Node.js 22 or newer** (AWS Lambda `nodejs22.x` and `nodejs24.x` runtimes).
 
 ## Contributors
 
@@ -87,6 +95,11 @@ export const handler = webhookHandler(
 
 ## Version History
 
+* 0.2.0
+  * **Breaking**: inner handler signature changed to 2-arity `(event, context) => Promise<result>` — the legacy `callback` argument is no longer passed.
+  * Exported a new `OnfleetWebhookHandler` type.
+  * Require Node.js 22+ (supports AWS Lambda `nodejs22.x` and `nodejs24.x` runtimes).
+  * Bumped `@types/node` to 22.x.
 * 0.1.4
   * Update dependencies.
 * 0.1.3

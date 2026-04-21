@@ -1,15 +1,20 @@
-import { APIGatewayProxyEventV2, Callback, Context, Handler } from "aws-lambda";
+import {
+  APIGatewayProxyEventV2,
+  APIGatewayProxyResultV2,
+  Context,
+} from "aws-lambda";
 import { verifySignature } from "./verify-signature";
+
+export type OnfleetWebhookHandler = (
+  event: APIGatewayProxyEventV2,
+  context: Context,
+) => Promise<APIGatewayProxyResultV2>;
 
 export function webhookHandler(
   onfleetApiSecret: string,
-  handler: Handler<APIGatewayProxyEventV2>,
-): Handler<APIGatewayProxyEventV2> {
-  return async (
-    event: APIGatewayProxyEventV2,
-    context: Context,
-    callback: Callback<unknown>,
-  ): Promise<unknown> => {
+  handler: OnfleetWebhookHandler,
+): OnfleetWebhookHandler {
+  return async (event, context) => {
     // WebHook validation
     // https://docs.onfleet.com/reference/validation
     if (event.requestContext.http.method == "GET") {
@@ -37,6 +42,6 @@ export function webhookHandler(
       };
     }
 
-    return handler(event, context, callback);
+    return handler(event, context);
   };
 }
